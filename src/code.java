@@ -1,6 +1,7 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-void main() {
+void main() throws IOException{
     int num=Integer.parseInt(IO.readln("Number of assignments: "));
     ArrayList<String> cun=new ArrayList<String>();
     ArrayList<String> da=new ArrayList<String>();
@@ -16,17 +17,47 @@ void main() {
     double total=0;
     for(int i=0;i<num;i++){
         String name = IO.readln("Name: ");
-        String date=IO.readln("Deadline(MMDD): ");
-        while(date.length()!=4){
-            IO.println("wrong date, try again");
-            date=IO.readln("Deadline(MMDD): ");
+        String date="";
+        int yes=0;
+        while(yes==0){
+            try{
+                date=IO.readln("Deadline(MMDD): ");
+                int iii=Integer.parseInt(date);
+                yes=1;
+                if(date.length()!=4){
+                    IO.println("wrong date, try again");
+                    yes=0;
+                }
+            }catch (NumberFormatException e){
+                IO.println("Wrong input, try again");
+                
+            }
         }
-        int ti=Integer.parseInt(IO.readln("Need time in minutes: "));
-        int imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
-        while(imp<1 || imp>20){
-            IO.println("Wrong importance answer");
-            imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
+        int ti=0;
+        yes=0;
+        while(yes==0){
+            try{
+                ti=Integer.parseInt(IO.readln("Need time in minutes: "));
+                yes=1;
+            }catch (NumberFormatException e){
+                IO.println("Wrong input, try again");
+            }
         }
+        int imp=0;
+        yes=0;
+        while(yes==0){
+            try{
+                imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
+                yes=1;
+                if(imp<1 || imp>20){
+                    IO.println("Wrong importance answer");
+                    yes=0;
+                }
+            }catch (NumberFormatException e){
+                IO.println("Wrong input, try again");
+            }
+        }
+        
         importance.add(imp);
         cun.add(name);
         da.add(date);
@@ -79,20 +110,57 @@ void main() {
         IO.println("Press 4: Change the ranking structure");
         IO.println("Press 5: Store data in a file");
         IO.println("Press 6: Quit");
-        pd=Integer.parseInt(IO.readln("Your choice: "));
+        int ye=0;
+        while(ye==0){
+            try{
+                pd=Integer.parseInt(IO.readln("Your choice: "));
+                ye=1;
+            }catch (NumberFormatException e){
+                IO.println("Not a number");
+            }
+        }
         if(pd==1){
             num+=1;
             String name = IO.readln("Name: ");
-            String date=IO.readln("Deadline(MMDD): ");
-            while(date.length()!=4){
-                IO.println("wrong date, try again");
-                date=IO.readln("Deadline(MMDD): ");
+            String date="";
+            int yes=0;
+            while(yes==0){
+                try{
+                    date=IO.readln("Deadline(MMDD): ");
+                    int iii=Integer.parseInt(date);
+                    yes=1;
+                    if(date.length()!=4){
+                        IO.println("wrong date, try again");
+                        yes=0;
+                    }
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                    
+                }
             }
-            int ti=Integer.parseInt(IO.readln("Need time in minutes: "));
-            int imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
-            while(imp<1 || imp>20){
-                IO.println("Wrong importance answer");
-                imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
+            yes=0;
+            int ti=0;
+            while(yes==0){
+                try{
+                    ti=Integer.parseInt(IO.readln("Need time in minutes: "));
+                    yes=1;
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                }
+            }
+            int imp=0;
+            yes=0;
+            while(yes==0){
+                try{
+                    imp=Integer.parseInt(IO.readln("What is the importance 1-20 "));
+                    yes=1;
+                    if(imp<1 || imp>20){
+                        IO.println("Wrong importance answer");
+                        yes=0;
+                    }
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                }
             }
             importance.add(imp);
             cun.add(name);
@@ -188,26 +256,56 @@ void main() {
                 note.set(i,0);
             }
         }else if(pd==4){
+            int yes=0;
             IO.println("The current ratio of deadline is "+(ratio1)*100);
-            double fi=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio2-ratio3)*100)+": "));
-            while(fi>(1-ratio2-ratio3)*100 || fi<0){
-                IO.println("Wrong input, try again");
-                fi=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio2-ratio3)*100)+": "));
+            double fi=0.0;
+            while(yes==0){
+                try{
+                    fi=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio2-ratio3)*100)+": "));
+                    yes=1;
+                    if(fi>(1-ratio2-ratio3)*100 || fi<0){
+                        IO.println("Wrong number, try again");
+                        yes=0;
+                    }
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                }
+                
             }
+
+            yes=0;
             ratio1=fi/100;
             IO.println("The current ratio of needed time is "+(ratio2)*100);
-            double se=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio3)*100)+": "));
-            while(se>(1-ratio1-ratio3)*100 || se<0){
-                IO.println("Wrong input, try again");
-                se=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio3)*100)+": "));
+            double se=0.0;
+            while(yes==0){
+                try{
+                    se=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio3)*100)+": "));
+                    yes=1;
+                    if(se>(1-ratio1-ratio3)*100 || se<0){
+                        IO.println("Wrong number, try again");
+                        yes=0;
+                    }
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                }
             }
+            yes=0;
             ratio2=se/100;
-            IO.println("The current ratio of importanc e is "+(ratio3)*100);
-            double th=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio2)*100)+": "));
-            while(th>(1-ratio1-ratio2)*100 || th<0){
-                IO.println("Wrong input, try again");
-                th=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio2)*100)+": "));
+            IO.println("The current ratio of importance is "+(ratio3)*100);
+            double th=0.0;
+            while(yes==0){
+                try{
+                    th=Double.parseDouble(IO.readln("Set new ration 0-"+Math.round((1-ratio1-ratio2)*100)+": "));
+                    yes=1;
+                    if(th>(1-ratio1-ratio2)*100 || th<0){
+                        IO.println("Wrong number, try again");
+                        yes=0;
+                    }
+                }catch (NumberFormatException e){
+                    IO.println("Wrong input, try again");
+                }
             }
+            yes=0;
             ratio3=th/100;
             score2.clear();
             score.clear();
@@ -231,7 +329,32 @@ void main() {
             for(int i=0;i<num;i++){
                 note.set(i,0);
             }
+        }else if(pd==5){
+            PrintWriter pw = new PrintWriter(new FileOutputStream("todolist.txt"));
+            for(int i=0;i<num;i++){
+                note.set(i,0);
+            }
+            Collections.sort(score);
+            for(int i=num-1;i>=0;i--){
+                for(int j=0;j<num;j++){
+                    if(Math.abs(score.get(i)-score2.get(j))<0.0001){
+                        if(note.get(j)==0){
+                            note.set(j,1);
+                            pw.println("The NO."+(num-i)+" assignment: "+cun.get(j));
+                            pw.println("Due: "+da2.get(j));
+                            pw.println("Need time: "+times.get(j)+", "+String.format("%.2f", times.get(j)/total*100)+"% of total needed time");
+                        }
+                    }
+                }
+            }
+            for(int i=0;i<num;i++){
+                note.set(i,0);
+            }
+            pw.close();
         }else{
+            if(pd==6){
+                continue;
+            }
             IO.println("Wrong input, try again");
         }
     }
